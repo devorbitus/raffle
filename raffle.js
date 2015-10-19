@@ -5,13 +5,13 @@ var fs = require('fs');
 var name = 'raffle.json';
 var noop = function() {};
 
-function random(count){
+function random(count, max){
 
   read(function(err, data) {
     var i = 0;
     var arr = [];
     while(i < count){
-      var a = (Math.random()*600).toFixed(0);
+      var a = (Math.random() * max).toFixed(0);
       if(!~data.indexOf(a) && !~arr.indexOf(a)){
         arr.push(a);
         i++;
@@ -37,5 +37,6 @@ function read(cb) {
 }
 
 var argv = process.argv;
-var count = argv[2];
-random(count || 0);
+var count = argv[2] || 0;
+var max = argv[3] || 600;
+random(count, max);
